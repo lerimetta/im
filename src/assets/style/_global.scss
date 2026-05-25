@@ -4,6 +4,7 @@ body {
   padding: 0;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
+  height: 100%;
 }
 
 .container {
@@ -198,4 +199,19 @@ a.button {
 .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: #2A592E ;
+}
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.app-footer {
+  flex: 0 0 auto;
 }

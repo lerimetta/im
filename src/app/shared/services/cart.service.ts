@@ -21,6 +21,7 @@ export class CartService {
   getCart(): Observable<CartType | DefaultResponseType> {
     return this.http.get<CartType | DefaultResponseType>(environment.api + 'cart', { withCredentials: true });
   }
+  
   getCartCount(): Observable<{ count: number } | DefaultResponseType> {
     return this.http.get<{ count: number } | DefaultResponseType>(environment.api + 'cart/count', { withCredentials: true })
       .pipe(
@@ -32,11 +33,11 @@ export class CartService {
         })
       )
   }
+
   updateCart(productId: string, quantity: number): Observable<CartType | DefaultResponseType> {
     return this.http.post<CartType | DefaultResponseType>(environment.api + 'cart', { productId, quantity }, { withCredentials: true })
       .pipe(
         tap(data => {
-
           if (!data.hasOwnProperty('error')) {
             let count = 0;
             (data as CartType).items.forEach(item => {

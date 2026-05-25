@@ -6,6 +6,7 @@ import { DefaultResponseType } from 'src/types/default-response.type';
 import { LoginResponseType } from 'src/types/login-response.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,10 @@ export class LoginComponent implements OnInit {
     rememberMe: [false],
   })
   constructor(private fb: FormBuilder, private AuthService: AuthService, private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router, private CartService: CartService) { }
 
   ngOnInit(): void {
+  
   }
 
   login(): void {

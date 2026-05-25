@@ -43,13 +43,15 @@ export class DetailComponent implements OnInit {
     },
     nav: false
   }
-
+  isLogged: boolean = false;
   count: number = 1;
   recommendedProducts: ProductType[] = [];
   product!: ProductType;
   serverStaticPath = environment.serverStaticPath;
 
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private cartService: CartService, private favoriteService: FavoriteService, private authService: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private cartService: CartService, private favoriteService: FavoriteService, private authService: AuthService, private _snackBar: MatSnackBar) {
+    this.isLogged = this.authService.getIsLoggedIn();
+   }
 
   ngOnInit(): void {
 

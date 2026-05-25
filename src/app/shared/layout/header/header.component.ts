@@ -29,15 +29,15 @@ export class HeaderComponent implements OnInit {
 
   @Input() categories: CategoryWithTypeType[] = [];
 
-  constructor(private AuthService: AuthService, private _snackBar: MatSnackBar, private router: Router, private cartService: CartService, private productService: ProductService) {
-    this.isLogged = this.AuthService.getIsLoggedIn();
+  constructor(private authService: AuthService, private _snackBar: MatSnackBar, private router: Router, private cartService: CartService, private productService: ProductService) {
+    this.isLogged = this.authService.getIsLoggedIn();
   }
 
   ngOnInit(): void {
     this.searchField.valueChanges
-    .pipe(
-      debounceTime(500)
-    )
+      .pipe(
+        debounceTime(500)
+      )
       .subscribe(value => {
         if (value && value.length > 2) {
           this.productService.searchProducts(value)
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
         }
       })
 
-    this.AuthService.isLogged$.subscribe((isLoggedIn: boolean) => {
+    this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
     });
 
@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit {
         if ((data as DefaultResponseType).error !== undefined) {
           throw new Error((data as DefaultResponseType).message);
         }
-
         this.count = (data as { count: number }).count;
       })
 
@@ -70,7 +69,7 @@ export class HeaderComponent implements OnInit {
 
   }
   logout(): void {
-    this.AuthService.logout()
+    this.authService.logout()
       .subscribe({
         next: () => {
           this.doLogout();
@@ -82,9 +81,10 @@ export class HeaderComponent implements OnInit {
   }
 
   doLogout() {
-    this.AuthService.removeTokens();
-    this.AuthService.userId = null;
+    this.authService.removeTokens();
+    this.authService.userId = null;
     this._snackBar.open('Вы вышли из системы');
+    this.count = 0;
     this.router.navigate(['/']);
   }
 
