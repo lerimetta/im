@@ -28,7 +28,7 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private cartService: CartService, private favoriteService: FavoriteService, private authService: AuthService, private _snackBar: MatSnackBar, private router: Router) {
     this.isLogged = this.authService.getIsLoggedIn();
-   }
+  }
 
   ngOnInit(): void {
     if (this.countInCart && this.countInCart > 1) {
@@ -81,8 +81,8 @@ export class ProductCardComponent implements OnInit {
         .subscribe((data: DefaultResponseType) => {
           if (data.error) {
             //scsc
+            throw new Error(data.message);
           }
-          throw new Error(data.message);
         })
       this.product.isInFavorite = false;
     } else {

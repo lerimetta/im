@@ -212,8 +212,7 @@ export class CatalogComponent implements OnInit {
   }
   @HostListener('document:click', ['$event'])
   click(event: Event) {
-
-    if (this.sortingOpen && (event.target as HTMLElement).className.indexOf('catalog-sorting') === -1) {
+    if (this.sortingOpen && !(event.target as HTMLElement).closest('.catalog-sorting')) {
       this.sortingOpen = false;
     }
   }

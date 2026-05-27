@@ -66,9 +66,8 @@ export class FavoriteComponent implements OnInit {
     this.favoriteService.removeFavorite(id)
       .subscribe((data: DefaultResponseType) => {
         if (data.error) {
-          //scsc
-        }
-        throw new Error(data.message);
+          throw new Error(data.message);
+        } 
       })
     this.products = this.products.filter(item => item.id !== id)
   }

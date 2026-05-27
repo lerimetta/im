@@ -49,11 +49,20 @@ export class HeaderComponent implements OnInit {
           this.products = [];
         }
       })
-
+    this.getCount();
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
+      this.getCount();
     });
 
+    this.cartService.count$
+      .subscribe(count => {
+        this.count = count;
+      })
+
+  }
+
+  getCount(): void {
     this.cartService.getCartCount()
       .subscribe((data: { count: number } | DefaultResponseType) => {
         if ((data as DefaultResponseType).error !== undefined) {
@@ -61,12 +70,6 @@ export class HeaderComponent implements OnInit {
         }
         this.count = (data as { count: number }).count;
       })
-
-    this.cartService.count$
-      .subscribe(count => {
-        this.count = count;
-      })
-
   }
   logout(): void {
     this.authService.logout()
@@ -84,7 +87,7 @@ export class HeaderComponent implements OnInit {
     this.authService.removeTokens();
     this.authService.userId = null;
     this._snackBar.open('Вы вышли из системы');
-    this.count = 0;
+    // this.count = 0;
     this.router.navigate(['/']);
   }
 
